@@ -4,8 +4,8 @@ import base64
 
 app = Flask(__name__)
 
-@app.route("/")
-def home():
+@app.route("/", methods=["GET"])
+def handler():
     image_url = request.args.get("url")
 
     if not image_url:
@@ -28,13 +28,15 @@ def home():
 
         return jsonify({
             "status": True,
-            "remove_by": "Friend Vercel API",
+            "remove_by": "Friend API",
             "image_base64": base64_img
         })
 
     except Exception as e:
         return jsonify({
             "status": False,
+            "error": str(e)
+        })            "status": False,
             "error": str(e)
         })            self.wfile.write(json.dumps({
                 "status": False,
