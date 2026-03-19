@@ -23,18 +23,21 @@ class handler(BaseHTTPRequestHandler):
 
         try:
             res = requests.get(image_url, timeout=10)
-
-            if res.status_code != 200:
-                raise Exception("Failed to fetch image")
-
             img = res.content
+
             base64_img = base64.b64encode(img).decode()
 
             self.wfile.write(json.dumps({
                 "status": True,
-                "remove_by": "Friend Vercel API",
+                "remove_by": "Friend API",
                 "image_base64": base64_img
             }).encode())
+
+        except Exception as e:
+            self.wfile.write(json.dumps({
+                "status": False,
+                "error": str(e)
+            }).encode())            }).encode())
 
         except Exception as e:
             self.wfile.write(json.dumps({
