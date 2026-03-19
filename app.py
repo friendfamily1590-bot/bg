@@ -4,8 +4,8 @@ import base64
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET"])
-def handler():
+@app.route("/")
+def home():
     image_url = request.args.get("url")
 
     if not image_url:
@@ -35,6 +35,8 @@ def handler():
     except Exception as e:
         return jsonify({
             "status": False,
+            "error": str(e)
+        })            "status": False,
             "error": str(e)
         })            "status": False,
             "error": str(e)
